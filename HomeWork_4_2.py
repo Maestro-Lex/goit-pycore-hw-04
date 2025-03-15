@@ -10,7 +10,7 @@ def get_cats_info(path: str) -> list:
             try:
                 cats_info_list.append({"id": line.strip().split(",")[0].strip(),
                                       "name": line.strip().split(",")[1].strip(),
-                                      "age": line.strip().split(",")[2].strip(),})
+                                      "age": int(line.strip().split(",")[2].strip()),})
             except Exception:
                 print(f"{lines_counter}-й рядок файлу містить некоректні дані!")
     return cats_info_list
