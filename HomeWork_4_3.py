@@ -3,6 +3,7 @@ from pathlib import Path
 from colorama import Fore, Back, Style, init
 # Colorama doesn't work without the init() method
 
+
 def get_dir_tree(path: Path, level:int = 1) -> None:  
     '''
     Рекурсивна функція обходу директорії із виведенням її дерева у консоль та записом до одноіменного файлу
