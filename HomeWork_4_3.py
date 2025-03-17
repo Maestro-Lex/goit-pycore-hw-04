@@ -24,7 +24,7 @@ def get_dir_tree(path: Path, level:int = 1) -> None:
             print(indentation + f"{Fore.LIGHTGREEN_EX + dir.name + Style.RESET_ALL}")
             file_tree.write(f"{indentation}  {dir.name}\n")
     
-def read_command(command: list) -> None:
+def read_command(command: Path) -> None:
     '''
     Функція обробляє аргументи командної строки
     '''
@@ -36,15 +36,15 @@ def read_command(command: list) -> None:
     # та в який буде записана інформація про структуру директорії
     # за умови, що директорія існує
     if user_dir.exists():
-        file_tree = open(f"{user_dir}_dir_tree.txt", "w+")
-        # У якості заголовка дерева визначаємо назву нашої директорії
-        print(Fore.LIGHTYELLOW_EX + Back.BLUE + user_dir.name + Style.RESET_ALL)
-        file_tree.write(f"<<{user_dir.name}>>\n")
+        with open(f"{user_dir}_dir_tree.txt", "w+") as file_tree:
+            # У якості заголовка дерева визначаємо назву нашої директорії
+            print(Fore.LIGHTYELLOW_EX + Back.BLUE + user_dir.name + Style.RESET_ALL)
+            file_tree.write(f"<<{user_dir.name}>>\n")
+            # Викликаємо рекурсивну функцію обробки директорії
+            get_dir_tree(user_dir)
     else:
-        print("Невірно передано шлях до директорії!!!")
-    # Викликаємо рекурсивну функцію обробки директорії
-    get_dir_tree(user_dir)
-
+        return print("Невірно передано шлях до директорії!!!")
+    
 def main() -> None:
     '''
     ТОЧКА ВХОДУ
@@ -60,8 +60,6 @@ def main() -> None:
         read_command(sys.argv[1])
     else:
         read_command(sys.argv[0])
-    # Закриваємо наш файл
-    file_tree.close()
 
 
 if __name__ == "__main__":
